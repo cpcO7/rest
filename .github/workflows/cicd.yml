@@ -20,3 +20,4 @@ jobs:
           git pull
           systemctl restart gunicorn.service
           systemctl reload nginx.service
+          celery -A root worker -l INFO
