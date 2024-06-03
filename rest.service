@@ -3,8 +3,8 @@ Description=Django CI/CD project daemon
 After=network.target
 
 [Service]
-WorkingDirectory=/var/www/samariddins_project/backend
-ExecStart=/var/www/samariddins_project/backend/.venv/bin/gunicorn --workers 1 --bind unix:/var/www/samariddins_project/backend/backend.sock root.wsgi:application
+WorkingDirectory=/var/www/samariddins_project/project1/backend
+ExecStart=/var/www/samariddins_project/project1/backend/.venv/bin/gunicorn --workers 1 --bind unix:/var/www/samariddins_project/project1/backend/backend.sock root.wsgi:application
 
 [Install]
 WantedBy=multi-user.target
