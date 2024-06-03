@@ -5,4 +5,3 @@ utils.py
 db.sqlite3
 media
 static
-.gitignore
