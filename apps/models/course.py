@@ -13,5 +13,6 @@ class Course(BaseModel):
     description = CKEditor5Field()
     video = FileField(upload_to='courses')
     category = ForeignKey('apps.Category', CASCADE, related_name='courses')
+    teacher = ForeignKey('apps.User', CASCADE, limit_choices_to={"type": User.Type.TEACHER}, related_name='teacher')
     students = ManyToManyField('apps.User', limit_choices_to={"type": User.Type.STUDENT}, related_name='courses',
                                blank=True)
