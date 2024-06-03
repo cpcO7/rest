@@ -98,3 +98,5 @@ class TeacherUserProxyModelAdmin(BaseUserAdmin):
 @admin.register(Category)
 class CategoryModelAdmin(admin.ModelAdmin):
     search_fields = 'name',
+
+# asdasdasd
