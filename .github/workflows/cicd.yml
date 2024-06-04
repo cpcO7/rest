@@ -14,7 +14,7 @@ jobs:
       with:
         host: 146.190.85.59
         username: root
-        password: ${{ secrets.SSH_PRIVATE_KEY }}
+        password: ${{ secrets.SSH_PASSWORD }}
         script: |
           cd /var/www/samariddins_project/project1/backend
           git pull
@@ -22,4 +22,3 @@ jobs:
           systemctl reload nginx.service
           celery -A root worker -l INFO
           celery -A root beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
-          
