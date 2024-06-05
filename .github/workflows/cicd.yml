@@ -9,16 +9,15 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - name: executing remote ssh commands using ssh-key
-      uses: appleboy/ssh-action@v0.1.10
-      with:
-        host: 146.190.85.59
-        username: root
-        password: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          cd /var/www/samariddins_project/project1/backend
-          git pull
-          systemctl restart rest.service
-          systemctl reload nginx.service
-          celery -A root worker -l INFO
-          celery -A root beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+      - name: executing remote ssh commands using ssh-key
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: 146.190.85.59
+          username: root
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd /var/www/samariddins_project/project1/backend
+            git pull
+            systemctl restart rest.service
+            systemctl reload nginx.service
+
