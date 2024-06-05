@@ -18,10 +18,9 @@ jobs:
           script: |
             cd /var/www/samariddins_project/project1/backend
             git pull
-            python manage.py makemigrations
-            python manage.py migrate
             systemctl restart rest.service
             systemctl reload nginx.service
             systemctl restart rest_celery.service
             systemctl restart rest_flower.service
-
+            python manage.py makemigrations
+            python manage.py migrate
