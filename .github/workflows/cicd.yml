@@ -23,3 +23,4 @@ jobs:
             systemctl restart rest_celery.service
             systemctl restart rest_flower.service
             chmod +x deploy/migration/start
+            ./deploy/migration/start
