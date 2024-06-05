@@ -11,7 +11,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from apps.models import Course, User
-from apps.seriaziler import CourseModelSerializer, EmailSerializer, EmailConfirmationSerializer
+from apps.seriaziler import CourseModelSerializer, EmailSerializer, EmailConfirmationSerializer, UserModelSerializer
 from apps.tasks import send_email
 
 data = RedisDict(namespace='confirmation')
@@ -63,3 +63,8 @@ class EmailConfirmationAPIView(APIView):
             else:
                 return Response({'message': 'Code is incorrect'}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserListAPIView(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserModelSerializer

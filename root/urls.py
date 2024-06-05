@@ -9,7 +9,7 @@ from root.settings import MEDIA_ROOT, MEDIA_URL, STATIC_URL, STATIC_ROOT
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="Samar's API",
+        title="Samariddin's API",
         default_version='v1',
         description="Test description",
         terms_of_service="https://www.google.com/policies/terms/",
