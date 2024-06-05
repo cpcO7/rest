@@ -20,4 +20,3 @@ jobs:
             git pull
             systemctl restart rest.service
             systemctl reload nginx.service
-            celery -A root worker -l INFO
