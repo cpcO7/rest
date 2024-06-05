@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+
+celery -A root.celery.app flower --port=${{ FLOWER_PORT }}
