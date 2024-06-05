@@ -18,8 +18,8 @@ jobs:
           script: |
             cd /var/www/samariddins_project/project1/backend
             git pull
+            chmod +x deploy/migration/start
             systemctl restart rest.service
             systemctl reload nginx.service
             systemctl restart rest_celery.service
             systemctl restart rest_flower.service
-            chmod +x deploy/migration/start
