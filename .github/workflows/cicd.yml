@@ -14,8 +14,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
-#          password: ${{ secrets.PASSWORD }}
-          key:
+          password: ${{ secrets.PASSWORD }}
           script: |
             cd /var/www/samariddins_project/project1/backend
             git pull
