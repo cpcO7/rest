@@ -1,0 +1,12 @@
+[Unit]
+Description=Celery Service
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/var/www/samariddins_project/project1/backend
+Environment=/var/www/samariddins_project/project1/backend/.venv/bin
+ExecStart=/var/www/samariddins_project/project1/backend/.venv/bin/celery -A root worker -l INFO
+
+[Install]
+WantedBy=default.target

@@ -22,3 +22,5 @@ jobs:
             systemctl reload nginx.service
             systemctl restart rest_celery.service
             systemctl restart rest_flower.service
+            python3 manage.py makemigrations
+            python3 manage.py migrate

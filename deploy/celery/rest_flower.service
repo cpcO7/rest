@@ -1,0 +1,12 @@
+[Unit]
+Description=Flower Celery Service
+
+[Service]
+User=root
+WorkingDirectory=/var/www/samariddins_project/project1/backend
+ExecStart=/var/www/samariddins_project/project1/backend/.venv/bin/celery -A root.celery.app flower --port=5555
+Restart=on-failure
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
