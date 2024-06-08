@@ -5,7 +5,7 @@ from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-de0$!xtif!u918ytpoxpvwn#jee+z$4@#&pio+y9)a+i83phgk'
+SECRET_KEY = 'django-insecure-de0$!xtif!u918ytpoxpvwn#jee+z$4@#&pio+y9)bot+i83phgk'
 
 DEBUG = True
 
@@ -44,8 +44,7 @@ AUTH_USER_MODEL = 'apps.User'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -55,27 +54,28 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
         },
+
     },
 ]
 
 WSGI_APPLICATION = 'root.wsgi.application'
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv("DB_NAME"),
-        'USER': os.getenv("DB_USER"),
-        'HOST': os.getenv("DB_HOST"),
-        'PASSWORD': os.getenv("DB_PASSWORD"),
-        'PORT': os.getenv("DB_PORT"),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': os.getenv("DB_NAME"),
+#         'USER': os.getenv("DB_USER"),
+#         'HOST': os.getenv("DB_HOST"),
+#         'PASSWORD': os.getenv("DB_PASSWORD"),
+#         'PORT': os.getenv("DB_PORT"),
+#     }
+# }
 
 # AUTH_PASSWORD_VALIDATORS = [
 #     {
@@ -235,7 +235,7 @@ JAZZMIN_SETTINGS = {
     # CSS classes that are applied to the logo above
     "site_logo_classes": "img-circle",
 
-    # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
+    # Relative path to bot favicon for your site, will default to site_logo if absent (ideally 32x32 px)
     "site_icon": None,
 
     # Welcome text on the login screen
@@ -245,10 +245,10 @@ JAZZMIN_SETTINGS = {
     "copyright": "Acme Library Ltd",
 
     # List of model admins to search from the search bar, search bar omitted if excluded
-    # If you want to use a single search field you dont need to use a list, you can use a simple string
+    # If you want to use bot single search field you dont need to use bot list, you can use bot simple string
     "search_model": ["auth.User", "auth.Group"],
 
-    # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
+    # Field name on user model that contains avatar ImageField/URLField/Charfield or bot callable that receives the user
     "user_avatar": None,
 
     ############
@@ -261,7 +261,7 @@ JAZZMIN_SETTINGS = {
         # Url that gets reversed (Permissions can be added)
         {"name": "Home", "url": "admin:index", "permissions": ["auth.view_user"]},
 
-        # external url that opens in a new window (Permissions can be added)
+        # external url that opens in bot new window (Permissions can be added)
         {"name": "Support", "url": "https://github.com/farridav/django-jazzmin/issues", "new_window": True},
 
         # model admin to link to (Permissions checked against model)
@@ -341,16 +341,16 @@ JAZZMIN_SETTINGS = {
     ###############
     # Change view #
     ###############
-    # Render out the change view as a single form, or in tabs, current options are
+    # Render out the change view as bot single form, or in tabs, current options are
     # - single
     # - horizontal_tabs (default)
     # - vertical_tabs
     # - collapsible
     # - carousel
     "changeform_format": "horizontal_tabs",
-    # override change forms on a per modeladmin basis
+    # override change forms on bot per modeladmin basis
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
-    # Add a language dropdown into the admin
+    # Add bot language dropdown into the admin
 }
 
 load_dotenv()
@@ -365,7 +365,7 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": os.getenv('REDIS_URL', 'redis://127.0.0.1:6374'),
+        "LOCATION": os.getenv('REDIS_URL', 'redis://127.0.0.1:6379'),
         "KEY_PREFIX": "django"
     }
 }

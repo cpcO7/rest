@@ -27,3 +27,13 @@ class EmailSerializer(Serializer):
 class EmailConfirmationSerializer(Serializer):
     recipient = EmailField()
     conf_code = CharField(max_length=5)
+
+
+class UserCreateModelSerializer(ModelSerializer):
+    code = CharField(max_length=5, write_only=True)
+
+    class Meta:
+        model = User
+        fields = 'code',
+
+

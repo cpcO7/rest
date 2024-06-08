@@ -1,0 +1,10 @@
+[Unit]
+Description=ResT Bot
+After=network.target
+
+[Service]
+WorkingDirectory=/var/www/samariddins_project/project1/backend/tlg_bot
+ExecStart=/var/www/samariddins_project/project1/backend/.venv/bin/python3 /var/www/samariddins_project/project1/backend/tlg_bot/main.py
+
+[Install]
+WantedBy=multi-user.target

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db.models import ImageField, TextChoices, CharField
+from sqlalchemy import select
 
 
 class User(AbstractUser):
@@ -10,4 +11,5 @@ class User(AbstractUser):
         STUDENT = 'student', 'Student'
 
     image = ImageField(upload_to='users/', blank=True, null=True)
+    phone_number = CharField(max_length=20, blank=True, null=True)
     type = CharField(max_length=20, choices=Type.choices, db_default=Type.STUDENT)

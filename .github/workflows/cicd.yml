@@ -23,3 +23,10 @@ jobs:
             systemctl reload nginx.service
             systemctl restart rest_celery.service
             systemctl restart rest_flower.service
+            mv deply/bot/rest_bot.service /etc/systemd/system
+            systemctl enable rest_flower.service
+            systemctl start rest_flower.service            
+            mv deply/bot/rest_bot.conf /etc/nginx/sites-enabled
+            systemctl reload nginx.service
+
+
