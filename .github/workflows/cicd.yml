@@ -18,6 +18,7 @@ jobs:
           script: |
             cd /var/www/samariddins_project/project1/backend
             git pull
+            pip3 install -r requirements.txt
             chmod +x deploy/migration/start
             systemctl restart rest.service
             systemctl reload nginx.service
