@@ -12,7 +12,7 @@ class UserModelSerializer(ModelSerializer):
 class CourseModelSerializer(ModelSerializer):
     class Meta:
         model = Course
-        fields = 'id', 'title', 'teacher'
+        fields = '__all__'
 
     def to_representation(self, instance: Course):
         represent = super().to_representation(instance)

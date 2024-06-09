@@ -1,11 +1,12 @@
 from random import randint
 
-from aiogram import Router
+from aiogram import Router, F
+from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
-from aiogram.types import Message, KeyboardButton, ReplyKeyboardRemove
-from aiogram.utils.keyboard import ReplyKeyboardBuilder
+from aiogram.types import Message, KeyboardButton, ReplyKeyboardRemove, InlineKeyboardButton
+from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
 from aiogram.utils.markdown import hbold
 from asgiref.sync import sync_to_async
 from django.core.cache import cache
@@ -20,6 +21,18 @@ class Form(StatesGroup):
     phone_number = State()
     username = State()
     password = State()
+
+
+@main_router.message(F.text == "/login")
+async def login_handler(message: Message):
+    if cache.get(message.from_user.id):
+        await message.answer("Eski kodingiz hali ham kuchda ☝️")
+    else:
+        ikb = InlineKeyboardBuilder()
+        ikb.row(InlineKeyboardButton(text="🔄 Kodni yangilash", callback_data='refresh'))
+        conf_code = randint(10000, 99999)
+        cache.set(message.from_user.id, str(conf_code), 20)
+        await message.answer(f"🔒 Kodingiz: {conf_code}", reply_markup=ikb.as_markup())
 
 
 @main_router.message(CommandStart())
@@ -70,8 +83,12 @@ async def username_handler(message: Message, state: FSMContext) -> None:
     conf_code = randint(10000, 99999)
     data = await state.get_data()
     await state.clear()
-
-    await message.answer(f"🔒 Kodingiz: {conf_code}")
+    await message.answer(f"🔒 Kodingiz:\n```\n{conf_code}\n```", parse_mode="Markdown")
+    msg = "🔑 Yangi kod olish uchun [/login](command) ni bosing"
+    await message.answer(msg, parse_mode=ParseMode.MARKDOWN)
 
     cache.set(conf_code,
-              {"phone_number": data['phone_number'], "username": data['username'], "password": data['password']}, 300)
+              {"phone_number": data['phone_number'], "username": data['username'], "password": data['password']}, 20)
+    cache.set(message.from_user.id, str(conf_code), 20)
+
+# @main_router.callback_query(F.data == "refresh"):

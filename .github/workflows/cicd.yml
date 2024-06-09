@@ -21,10 +21,9 @@ jobs:
             chmod +x deploy/migration/start
             systemctl restart rest.service
             systemctl reload nginx.service
+            systemctl restart rest_bot.service
             systemctl restart rest_celery.service
             systemctl restart rest_flower.service
-            systemctl enable rest_flower.service
-            systemctl start rest_flower.service            
-            systemctl reload nginx.service
+            systemctl restart rest_beat.service
 
 

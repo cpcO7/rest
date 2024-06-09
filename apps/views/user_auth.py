@@ -1,31 +1,20 @@
 from random import randint
-from time import time
 
 from django.contrib.auth.hashers import make_password
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from apps.models import Course, User
-from apps.seriaziler import CourseModelSerializer, EmailSerializer, EmailConfirmationSerializer, UserModelSerializer, \
+from apps.models import User
+from apps.seriaziler import EmailSerializer, EmailConfirmationSerializer, UserModelSerializer, \
     UserCreateModelSerializer
 from apps.tasks import send_email
-
-
-class CourseListAPIView(ListAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseModelSerializer
-
-
-class CourseRetrieveAPIView(RetrieveAPIView):
-    queryset = Course.objects.all()
-    serializer_class = CourseModelSerializer
 
 
 class EmailAPIView(APIView):
