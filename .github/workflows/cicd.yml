@@ -25,5 +25,3 @@ jobs:
             systemctl restart rest_celery.service
             systemctl restart rest_flower.service
             systemctl restart rest_beat.service
-
-
