@@ -9,7 +9,6 @@ from aiogram.types import Message, KeyboardButton, ReplyKeyboardRemove, InlineKe
 from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
 from aiogram.utils.markdown import hbold
 from django.core.cache import cache
-from django.core.exceptions import ObjectDoesNotExist
 
 from apps.models import User
 
@@ -30,7 +29,7 @@ async def login_handler(message: Message):
         ikb = InlineKeyboardBuilder()
         ikb.row(InlineKeyboardButton(text="🔄 Kodni yangilash", callback_data='refresh'))
         conf_code = randint(10000, 99999)
-        cache.set(message.from_user.id, str(conf_code), 20)
+        cache.set(message.from_user.id, str(conf_code), 60)
         await message.answer(f"🔒 Kodingiz: {conf_code}", reply_markup=ikb.as_markup())
 
 
@@ -83,12 +82,7 @@ async def username_handler(message: Message, state: FSMContext) -> None:
     await message.answer(f"🔒 Kodingiz:\n```\n{conf_code}\n```", parse_mode="Markdown")
     msg = "🔑 Yangi kod olish uchun [/login](command) ni bosing"
     await message.answer(msg, parse_mode=ParseMode.MARKDOWN)
-    # data = {
-    #     "phone_number": data['phone_number'],
-    #     "username": data['username'],
-    #     "password": data['password']
-    # }
-    cache.set(conf_code, data, 20)
-    cache.set(message.from_user.id, str(conf_code), 20)
+    cache.set(conf_code, data, 60)
+    cache.set(message.from_user.id, str(conf_code), 60)
 
 # @main_router.callback_query(F.data == "refresh"):
