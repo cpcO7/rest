@@ -64,7 +64,7 @@ async def phone_number_handler(message: Message, state: FSMContext) -> None:
 async def username_handler(message: Message, state: FSMContext) -> None:
     if len(message.text) >= 3:
         try:
-            user = await sync_to_async(User.objects.get)(username=message.text)
+            user = await User.objects.aget(username=message.text)
             await message.answer('Bunday username mavjud boshqa username kiriting! ')
             return
         except ObjectDoesNotExist as e:
