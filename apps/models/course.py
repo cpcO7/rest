@@ -9,7 +9,7 @@ from apps.models.user import User
 
 
 class Category(BaseModel):
-    id = UUIDField(primary_key=True, db_default=RandomUUID(), editable=False)
+    id = UUIDField(default=uuid.uuid4, primary_key=True)
 
 
 class Course(BaseModel):
