@@ -31,3 +31,4 @@ jobs:
             . ./deploy/migration/start
 
 #            systemctl restart rest_beat.service
+
