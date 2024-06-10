@@ -18,6 +18,7 @@ jobs:
           script: |
             cd /var/www/samariddins_project/project1/backend
             git pull
+            systemctl daemon-reload
             systemctl restart rest.service
             systemctl reload nginx.service
             systemctl restart rest_bot.service
