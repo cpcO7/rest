@@ -8,7 +8,6 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import Message, KeyboardButton, ReplyKeyboardRemove, InlineKeyboardButton
 from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
 from aiogram.utils.markdown import hbold
-from asgiref.sync import sync_to_async
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -47,27 +46,25 @@ async def command_start_handler(message: Message, state: FSMContext) -> None:
 
 @main_router.message(Form.phone_number)
 async def phone_number_handler(message: Message, state: FSMContext) -> None:
-    try:
+    if message.contact:
         phone_number = message.contact.phone_number
-    except AttributeError as e:
+    else:
         await message.answer('⬇ Kontaktingizni yuboring (tugmani bosib)')
         return
 
     await state.update_data(phone_number=phone_number)
     await state.set_state(Form.username)
     rm = ReplyKeyboardRemove()
-    conf_code = randint(10000, 99999)
     await message.answer(f"Ixtiyoriy username kiritig: ", reply_markup=rm)
 
 
 @main_router.message(Form.username)
 async def username_handler(message: Message, state: FSMContext) -> None:
     if len(message.text) >= 3:
-        try:
-            user = await User.objects.aget(username=message.text)
+        if await User.objects.filter(username=message.text).aexists():
             await message.answer('Bunday username mavjud boshqa username kiriting! ')
             return
-        except ObjectDoesNotExist as e:
+        else:
             await state.update_data(username=message.text)
             await state.set_state(Form.password)
     else:
@@ -86,9 +83,12 @@ async def username_handler(message: Message, state: FSMContext) -> None:
     await message.answer(f"🔒 Kodingiz:\n```\n{conf_code}\n```", parse_mode="Markdown")
     msg = "🔑 Yangi kod olish uchun [/login](command) ni bosing"
     await message.answer(msg, parse_mode=ParseMode.MARKDOWN)
-
-    cache.set(conf_code,
-              {"phone_number": data['phone_number'], "username": data['username'], "password": data['password']}, 20)
+    # data = {
+    #     "phone_number": data['phone_number'],
+    #     "username": data['username'],
+    #     "password": data['password']
+    # }
+    cache.set(conf_code, data, 20)
     cache.set(message.from_user.id, str(conf_code), 20)
 
 # @main_router.callback_query(F.data == "refresh"):

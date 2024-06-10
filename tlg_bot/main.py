@@ -5,7 +5,6 @@ import sys
 from dotenv import load_dotenv
 import django
 
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 load_dotenv('../.env')
@@ -32,31 +31,38 @@ async def on_shutdown(dispatcher: Dispatcher, bot: Bot):
     await bot.delete_webhook(drop_pending_updates=True)
 
 
-async def main() -> None:
+async def main_pooling() -> None:
     dp = Dispatcher()
     dp.include_router(private_handler_router)
-    # dp.startup.register(on_startup)
-    # dp.shutdown.register(on_shutdown)
 
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
-
-    # app = web.Application()
-#
-#     webhook_requests_handler = SimpleRequestHandler(
-#         dispatcher=dp,
-#         bot=bot,
-        # secret_token=conf.bot.WEBHOOK_SECRET,
-    # )
-    # webhook_requests_handler.register(app, path=conf.bot.WEBHOOK_PATH)
-    #
-    # setup_application(app, dp, bot=bot)
-    #
-    # web.run_app(app, host=conf.bot.WEB_SERVER_HOST, port=conf.bot.WEB_SERVER_PORT)
 
     await dp.start_polling(bot)
 
 
+def main_webhook() -> None:
+    dp = Dispatcher()
+    dp.include_router(private_handler_router)
+    dp.startup.register(on_startup)
+    dp.shutdown.register(on_shutdown)
+
+    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+
+    app = web.Application()
+
+    webhook_requests_handler = SimpleRequestHandler(
+        dispatcher=dp,
+        bot=bot,
+        secret_token=conf.bot.WEBHOOK_SECRET,
+    )
+    webhook_requests_handler.register(app, path=conf.bot.WEBHOOK_PATH)
+
+    setup_application(app, dp, bot=bot)
+
+    web.run_app(app, host=conf.bot.WEB_SERVER_HOST, port=conf.bot.WEB_SERVER_PORT)
+
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-    # main()
-    asyncio.run(main())
+    # main_webhook()
+    asyncio.run(main_pooling())

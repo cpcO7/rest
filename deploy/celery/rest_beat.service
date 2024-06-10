@@ -1,0 +1,12 @@
+[Unit]
+Description=Flower Celery Service
+
+[Service]
+User=root
+WorkingDirectory=/var/www/samariddins_project/project1/backend
+ExecStart=/var/www/samariddins_project/project1/backend/.venv/bin/celery -A root beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+Restart=on-failure
+Type=simple
+
+[Install]
+WantedBy=multi-user.target

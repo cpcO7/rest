@@ -28,7 +28,7 @@ class EmailAPIView(APIView):
             try:
                 user = User.objects.get(email=recipient)
                 return Response({
-                                    "message": 'Bunday email mavjud boshqa email kiriting! '})
+                    "message": 'Bunday email mavjud boshqa email kiriting! '})
             except ObjectDoesNotExist as e:
                 conf_code = randint(10000, 99999)
                 cache.set(str(conf_code), recipient, 60)
@@ -64,26 +64,13 @@ class UserListAPIView(ListAPIView):
     serializer_class = UserModelSerializer
 
 
-class UserCreateAPIView(CreateAPIView):
+class UserCreateAPIView(APIView):
     permission_classes = AllowAny,
-    queryset = User.objects.all()
-    serializer_class = UserCreateModelSerializer
 
-    def create(self, request, *args, **kwargs):
+    def post(self, request):
         code = request.data.get('code')
         code_data = cache.get(code)
-
         if code_data:
-            username = code_data['username']
-            phone_number = code_data['phone_number']
-            password = code_data['password']
-
-            hash_password = make_password(password)
-
-            request.data.pop('code', None)
-
-            user = User.objects.create(username=username, phone_number=phone_number, password=hash_password)
-
-            return Response({"message": "User created successfully"}, status=status.HTTP_201_CREATED)
-        else:
-            return Response({"error": "Invalid or expired code"}, status=status.HTTP_400_BAD_REQUEST)
+            User.objects.create_user(**code_data)
+            return Response({"message": "User created successfully"}, status.HTTP_201_CREATED)
+        return Response({"error": "Invalid or expired code"}, status.HTTP_400_BAD_REQUEST)
