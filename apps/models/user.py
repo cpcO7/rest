@@ -1,6 +1,7 @@
 import uuid
 
 from django.contrib.auth.models import AbstractUser
+from django.contrib.postgres.functions import RandomUUID
 from django.db.models import ImageField, TextChoices, CharField, UUIDField
 
 
