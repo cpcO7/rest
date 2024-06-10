@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 from pathlib import Path
 from datetime import timedelta
 
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-de0$!xtif!u918ytpoxpvwn#jee+z$4@#&pio+y9)bot+i83phgk'
@@ -70,11 +72,11 @@ WSGI_APPLICATION = 'root.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'rest_db',
-        'USER': 'postgres',
-        'PASSWORD': '041016',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv("DB_NAME"),
+        'USER': os.getenv("DB_USER"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'HOST': os.getenv("DB_HOST"),
+        'PORT': os.getenv("DB_PORT"),
     }
 }
 
@@ -354,7 +356,6 @@ JAZZMIN_SETTINGS = {
     # Add bot language dropdown into the admin
 }
 
-load_dotenv()
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.getenv("EMAIL_HOST")
