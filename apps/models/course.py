@@ -1,5 +1,6 @@
 import uuid
 
+from django.contrib.postgres.functions import RandomUUID
 from django.db.models import FileField, ForeignKey, CASCADE, ManyToManyField, UUIDField
 from django_ckeditor_5.fields import CKEditor5Field
 
@@ -8,11 +9,11 @@ from apps.models.user import User
 
 
 class Category(BaseModel):
-    id = UUIDField(default=uuid.uuid4, primary_key=True)
+    id = UUIDField(primary_key=True, db_default=RandomUUID(), editable=False)
 
 
 class Course(BaseModel):
-    id = UUIDField(default=uuid.uuid4, primary_key=True)
+    id = UUIDField(primary_key=True, db_default=RandomUUID(), editable=False)
     description = CKEditor5Field()
     video = FileField(upload_to='courses')
     category = ForeignKey('apps.Category', CASCADE, related_name='courses')
