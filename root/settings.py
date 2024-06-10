@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 from datetime import timedelta
-
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent

@@ -8,7 +8,7 @@ import django
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
+load_dotenv('../.env')
 
 TOKEN = os.getenv("BOT_TOKEN")
 
