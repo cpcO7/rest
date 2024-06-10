@@ -21,14 +21,6 @@ jobs:
             systemctl daemon-reload
             systemctl restart rest.service
             systemctl reload nginx.service
-#            systemctl restart rest_bot.service
-#            mv deploy/celery/rest_celery.service /etc/systemd/system
-#            mv deploy/celery/rest_flower.service /etc/systemd/system
-#            systemctl restart rest_celery.service
-#            systemctl daemon-reload
-#            systemctl restart rest_flower.service
             chmod +x ./deploy/migration/start
             . ./deploy/migration/start
-
-#            systemctl restart rest_beat.service
 
