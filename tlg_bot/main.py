@@ -64,5 +64,5 @@ def main_webhook() -> None:
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
-    # main_webhook()
-    asyncio.run(main_pooling())
+    main_webhook()
+    # asyncio.run(main_pooling())

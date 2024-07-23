@@ -15,7 +15,7 @@ class SlugBaseModel(Model):
         slug = base_slug
         num = 1
 
-        while self.__class__.objects.filter(slug=slug).exists():
+        while self.__class__.objects.filter(slug=slug).s():
             slug = f'{base_slug}-{num}'
             num += 1
 

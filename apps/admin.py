@@ -99,4 +99,3 @@ class TeacherUserProxyModelAdmin(BaseUserAdmin):
 class CategoryModelAdmin(admin.ModelAdmin):
     search_fields = 'name',
 
-# asdasdasd

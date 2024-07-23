@@ -3,7 +3,6 @@ from random import randint
 from django.contrib.auth.hashers import make_password
 from django.core.cache import cache
 from django.core.exceptions import ObjectDoesNotExist
-from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.generics import ListAPIView, CreateAPIView
 from rest_framework.permissions import AllowAny
@@ -20,7 +19,7 @@ from apps.tasks import send_email
 class EmailAPIView(APIView):
     permission_classes = [AllowAny]
 
-    @swagger_auto_schema(request_body=EmailSerializer)
+    # @swagger_auto_schema(request_body=EmailSerializer)
     def post(self, request):
         serializer = EmailSerializer(data=request.data)
         if serializer.is_valid():
@@ -40,7 +39,7 @@ class EmailAPIView(APIView):
 class EmailConfirmationAPIView(APIView):
     permission_classes = [AllowAny]
 
-    @swagger_auto_schema(request_body=EmailConfirmationSerializer)
+    # @swagger_auto_schema(request_body=EmailConfirmationSerializer)
     def post(self, request):
         serializer = EmailConfirmationSerializer(data=request.data)
         if serializer.is_valid():
