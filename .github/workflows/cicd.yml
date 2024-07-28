@@ -18,6 +18,7 @@ jobs:
           script: |
             cd /var/www/
             git clone git@github.com:cpcO7/ResT.git new_res/backend
+            cd new_res/backend/
             docker-compose build
             docker-compose up -d
 
