@@ -1,26 +1,26 @@
-#name: Django CI/CD Deployment
-#
-#on:
-#  push:
-#    branches: [ main ]
-#
-#jobs:
-#  deploy:
-#    name: Deploy
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: executing remote ssh commands using ssh-key
-#        uses: appleboy/ssh-action@v0.1.10
-#        with:
-#          host: ${{ secrets.HOST }}
-#          username: ${{ secrets.USER }}
-#          password: ${{ secrets.PASSWORD }}
-#          script: |
-#            cd /var/www/samariddins_project/project1/backend
-#            git pull
-#            systemctl daemon-reload
-#            systemctl restart rest.service
-#            systemctl reload nginx.service
+name: Django CI/CD Deployment
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh commands using ssh-key
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd /var/www/ResT/backend
+            git pull
+            systemctl daemon-reload
+            systemctl restart rest.service
+            systemctl reload nginx.service
 #            chmod +x ./deploy/migration/start
 #            . ./deploy/migration/start
-#
+

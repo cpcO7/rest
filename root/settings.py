@@ -115,7 +115,7 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Samariddin API',
+    'TITLE': 'ResT API',
     'DESCRIPTION': 'Samariddin Urunov',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
