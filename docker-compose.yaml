@@ -28,3 +28,4 @@ volumes:
   pg_data_p19:
   media_volume:
   static_volume:
+
