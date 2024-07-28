@@ -19,7 +19,7 @@ services:
       - path: .env
         required: true
     ports:
-      - ${PROJECT_PORT}:${PROJECT_PORT}
+      - 8000:80000
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media
