@@ -1,0 +1,30 @@
+services:
+  backend_service:
+    build:
+      context: .
+      dockerfile: ./compose/django/Dockerfile
+    develop:
+      watch:
+        - action: sync
+          path: ./
+          target: /app
+          ignore:
+            - .venv
+            - .idea
+            - .git
+        - action: rebuild
+          path: requirements.txt
+    command: /start-django
+    env_file:
+      - path: .env
+        required: true
+    ports:
+      - ${PROJECT_PORT}:${PROJECT_PORT}
+    volumes:
+      - static_volume:/app/static
+      - media_volume:/app/media
+
+volumes:
+  pg_data_p19:
+  media_volume:
+  static_volume:

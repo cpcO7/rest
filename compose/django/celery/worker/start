@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+sleep 3
+
+celery -A root worker -l INFO

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+
+sleep 3
+
+celery -A root beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+
+sleep 3
+
+python3 manage.py migrate django_celery_results

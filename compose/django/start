@@ -1,0 +1,6 @@
+#!/bin/sh
+
+set -o errexit
+set -o nounset
+echo "123"
+gunicorn root.wsgi:application --bind 0.0.0.0:${PROJECT_PORT}

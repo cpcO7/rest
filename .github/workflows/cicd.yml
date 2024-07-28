@@ -16,11 +16,14 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /var/www/ResT/backend
-            git pull
-            systemctl daemon-reload
-            systemctl restart rest.service
-            systemctl reload nginx.service
+            cd /var/www/
+            git clone git@github.com:cpcO7/ResT.git new_res/backend
+            docker-compose build
+            docker-compose up -d
+
+#            systemctl daemon-reload
+#            systemctl restart rest.service
+#            systemctl reload nginx.service
 #            chmod +x ./deploy/migration/start
 #            . ./deploy/migration/start
 
