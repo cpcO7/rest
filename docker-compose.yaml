@@ -19,7 +19,7 @@ services:
       - path: .env
         required: true
     ports:
-      - 8000:80000
+      - 8000:8000
     volumes:
       - static_volume:/app/static
       - media_volume:/app/media

@@ -16,9 +16,8 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /var/www/
-            git clone git@github.com:cpcO7/ResT.git new_res/backend
-            cd new_res/backend/
+            cd /var/www/new_res/backend/
+            git pull
             docker-compose build
             docker-compose up -d
 
