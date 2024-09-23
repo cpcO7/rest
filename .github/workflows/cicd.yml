@@ -18,12 +18,6 @@ jobs:
           script: |
             mkdir -p /var/www/rest/backend
             cd /var/www/rest/backend
-            if [ -d ".git" ]; then
-              git pull origin main
-            else
-              git clone https://github.com/cpcO7/rest.git . 
-            fi
-            sleep 10s
-            
+            git clone https://github.com/cpcO7/rest.git . 
             chmod +x ./deploy/compose/start
             ./deploy/compose/start
