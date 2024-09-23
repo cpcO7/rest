@@ -16,12 +16,12 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            mkdir -p /var/www/ResT/backend
-            cd /var/www/ResT/backend
+            mkdir -p /var/www/rest/backend
+            cd /var/www/rest/backend
             if [ -d ".git" ]; then
               git pull origin main
             else
-              git clone https://github.com/cpcO7/rest.git .
+              git clone https://github.com/cpcO7/rest.git 
             fi
             sleep 10s
             ./deploy/compose/start
