@@ -25,3 +25,4 @@ jobs:
             fi
             sleep 10s
             ./deploy/compose/start
+            
