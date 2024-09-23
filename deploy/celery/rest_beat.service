@@ -1,5 +1,5 @@
 [Unit]
-Description=Flower Celery Service
+Description=Beat Service
 
 [Service]
 User=root

@@ -16,11 +16,13 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            mkdir -p /var/www/ResT/backend
             cd /var/www/ResT/backend
-            git pull
-            systemctl daemon-reload
-            systemctl restart rest.service
-            systemctl reload nginx.service
-#            chmod +x ./deploy/migration/start
-#            . ./deploy/migration/start
+            if [ -d ".git" ]; then
+              git pull origin main
+            else
+              git clone https://github.com/cpcO7/rest.git .
+            fi
+            sleep 10s
+            ./deploy/compose/start
 
