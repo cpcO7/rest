@@ -21,7 +21,9 @@ jobs:
             if [ -d ".git" ]; then
               git pull origin main
             else
-              git clone https://github.com/cpcO7/rest.git 
+              git clone https://github.com/cpcO7/rest.git . 
             fi
             sleep 10s
+            
+            chmod +x ./deploy/compose/start
             ./deploy/compose/start
